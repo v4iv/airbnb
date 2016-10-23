@@ -2,16 +2,17 @@
  * Created by Vaibhav on 10/23/2016.
  */
 import React, {Component} from 'react';
-import {AppRegistry, ScrollView, View, StatusBar, Text} from 'react-native';
+import {AppRegistry, ScrollView, View, Text} from 'react-native';
 import {fetch} from 'fetch';
 import ListCard from '../ListCard/index';
 import styles from './stylesheet';
 
-export default class MainScreen extends Component {
+export default class MainScene extends Component {
     constructor() {
         super();
         this.state = {
             listings: [],
+            likedIDs: [],
         };
     }
 
@@ -23,17 +24,30 @@ export default class MainScreen extends Component {
             });
     }
 
+    toggleLike(id) {
+        const {likedIDs} = this.state;
+        const isLiked = likedIDs.indexOf(id) !== -1;
+        if (isLiked) {
+            this.setState({likedIDs: likedIDs.filter(i => i !== id)});
+        } else {
+            this.setState({likedIDs: [...likedIDs, id]});
+        }
+    }
+
     render() {
-        const listCards = this.state.listings.map((listing) => <ListCard key={listing.id} listing={listing}/>);
+        const listCards = this.state.listings.map(
+            (listing) =>
+                <ListCard
+                    key={listing.id}
+                    listing={listing}
+                    isLiked={this.state.likedIDs.indexOf(listing.id) !== -1}
+                    onLike={() => this.toggleLike(listing.id)}/>);
         return (
             <View style={{flex: 1}}>
-                <StatusBar
-                    translucent={true}
-                />
                 <View style={styles.toolbar}>
-                    <Text>Santa Cruz</Text>
+                    <Text>AirBnB</Text>
                     <Text style={styles.results}>
-                        {this.state.listings.length} homes
+                        Santa Cruz • {this.state.listings.length} homes
                     </Text>
                 </View>
                 <ScrollView

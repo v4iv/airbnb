@@ -6,6 +6,7 @@ import {View, Image, Text} from 'react-native';
 import styles from './stylesheet';
 import PriceBadge from '../PriceBadge/index';
 import RatingWidget from '../RatingWidget/index';
+import LikeButton from '../LikeButton';
 
 export default class ListCard extends Component {
 
@@ -37,6 +38,7 @@ export default class ListCard extends Component {
                             {this.props.listing.location}
                         </Text>
                     </View>
+                    <LikeButton isLiked={this.props.isLiked} onPress={this.props.onLike} />
                 </View>
             </View>
         );

@@ -4,6 +4,6 @@
  * @flow
  */
 import {AppRegistry} from "react-native";
-import MainScreen from "./js/components/App/index";
+import MainScene from "./js/components/App/index";
 
-AppRegistry.registerComponent('airbnb', () => MainScreen);
+AppRegistry.registerComponent('airbnb', () => MainScene);
